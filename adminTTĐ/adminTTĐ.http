@@ -1,0 +1,19 @@
+@adminTTĐ_HostAddress = http://localhost:5118
+
+### LẤY DANH SÁCH BÀI VIẾT
+GET {{adminTTĐ_HostAddress}}/api/baiviet
+Accept: application/json
+
+###
+
+### THÊM BÀI VIẾT
+POST {{adminTTĐ_HostAddress}}/api/baiviet
+Content-Type: application/json
+
+{
+  "tieuDe": "Bài viết test",
+  "noiDung": "Nội dung test",
+  "trangThai": "Đăng"
+}
+
+###

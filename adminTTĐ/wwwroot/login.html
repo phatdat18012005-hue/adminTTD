@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dang Nhap He Thong</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-auth a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #registerForm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Form Dang Nhap -->
+        <div id="loginForm">
+            <h1>Dang Nhap</h1>
+            <div class="message" id="loginMessage"></div>
+            <div class="loading" id="loginLoading">
+                <div class="spinner"></div>
+                <p>Dang xu ly...</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" placeholder="Nhap email cua ban" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mat khau:</label>
+                    <input type="password" id="loginPassword" placeholder="Nhap mat khau" required>
+                </div>
+                <button type="submit" class="btn-login">Dang Nhap</button>
+            </form>
+            <div class="toggle-auth">
+                Chua co tai khoan? <a onclick="toggleForms()">Dang ky ngay</a>
+            </div>
+        </div>
+
+        <!-- Form Dang Ky -->
+        <div id="registerForm">
+            <h1>Dang Ky</h1>
+            <div class="message" id="registerMessage"></div>
+            <div class="loading" id="registerLoading">
+                <div class="spinner"></div>
+                <p>Dang xu ly...</p>
+            </div>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" placeholder="Nhap email cua ban" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Mat khau:</label>
+                    <input type="password" id="registerPassword" placeholder="Nhap mat khau (toi thieu 6 ky tu)" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Xac nhan mat khau:</label>
+                    <input type="password" id="registerPasswordConfirm" placeholder="Xac nhan mat khau" required>
+                </div>
+                <button type="submit" class="btn-login">Dang Ky</button>
+            </form>
+            <div class="toggle-auth">
+                Da co tai khoan? <a onclick="toggleForms()">Dang nhap</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-detect API base URL
+        const getApiBaseUrl = () => {
+            const protocol = window.location.protocol;
+            const hostname = window.location.hostname;
+            const port = window.location.port;
+
+            // Neu duoi localhost hoac 127.0.0.1, se tu detect port
+            if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                return `${protocol}//${hostname}${port ? ':' + port : ''}`;
+            }
+
+            // Neu duoi production, chi dung protocol va hostname
+            return `${protocol}//${hostname}`;
+        };
+
+        const API_BASE_URL = `${getApiBaseUrl()}/api/auth`;
+
+        console.log('API URL:', API_BASE_URL);
+
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+            registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+            clearMessages();
+        }
+
+        function clearMessages() {
+            document.getElementById('loginMessage').style.display = 'none';
+            document.getElementById('registerMessage').style.display = 'none';
+            document.getElementById('loginMessage').textContent = '';
+            document.getElementById('registerMessage').textContent = '';
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const matKhau = document.getElementById('loginPassword').value;
+
+            if (!email || !matKhau) {
+                showMessage('loginMessage', 'Email va mat khau khong duoc de trong', 'error');
+                return;
+            }
+
+            showLoading('loginLoading', true);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, matKhau })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('loginMessage', data.message, 'success');
+                    console.log('Dang nhap thanh cong:', data.user);
+
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                    if (data.token) {
+                        localStorage.setItem('authToken', data.token);
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = '/adminindex.html';
+                    }, 1500);
+                } else {
+                    showMessage('loginMessage', data.message || 'Dang nhap that bai', 'error');
+                }
+            } catch (error) {
+                console.error('Loi:', error);
+                showMessage('loginMessage', 'Loi ket noi. Vui long thu lai sau. URL: ' + API_BASE_URL, 'error');
+            } finally {
+                showLoading('loginLoading', false);
+            }
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('registerEmail').value.trim();
+            const matKhau = document.getElementById('registerPassword').value;
+            const matKhauConfirm = document.getElementById('registerPasswordConfirm').value;
+
+            if (!email || !matKhau || !matKhauConfirm) {
+                showMessage('registerMessage', 'Vui long dien day du thong tin', 'error');
+                return;
+            }
+
+            if (matKhau !== matKhauConfirm) {
+                showMessage('registerMessage', 'Mat khau khong khop', 'error');
+                return;
+            }
+
+            if (matKhau.length < 6) {
+                showMessage('registerMessage', 'Mat khau phai co it nhat 6 ky tu', 'error');
+                return;
+            }
+
+            showLoading('registerLoading', true);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, matKhau })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('registerMessage', data.message, 'success');
+                    console.log('Dang ky thanh cong:', data.user);
+
+                    document.getElementById('registerPassword').value = '';
+                    document.getElementById('registerPasswordConfirm').value = '';
+                    document.getElementById('registerEmail').value = '';
+
+                    setTimeout(() => {
+                        toggleForms();
+                    }, 1500);
+                } else {
+                    showMessage('registerMessage', data.message || 'Dang ky that bai', 'error');
+                }
+            } catch (error) {
+                console.error('Loi:', error);
+                showMessage('registerMessage', 'Loi ket noi. Vui long thu lai sau. URL: ' + API_BASE_URL, 'error');
+            } finally {
+                showLoading('registerLoading', false);
+            }
+        }
+
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `message ${type}`;
+        }
+
+        function showLoading(elementId, show) {
+            const element = document.getElementById(elementId);
+            element.style.display = show ? 'block' : 'none';
+        }
+
+        window.addEventListener('load', () => {
+            const currentUser = localStorage.getItem('currentUser');
+            const authToken = localStorage.getItem('authToken');
+            if (currentUser && authToken) {
+                window.location.href = '/adminindex.html';
+            }
+        });
+    </script>
+</body>
+</html>

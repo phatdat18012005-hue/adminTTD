@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>He Thong Quan Tri</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .status {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .status h3 {
+            margin-top: 0;
+        }
+
+        .status ul {
+            text-align: left;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>? He Thong Quan Tri</h1>
+        <p>Hoan tat va san sang su dung!</p>
+
+        <a href="/login.html" class="btn">Dang Nhap</a>
+
+        <div class="status">
+            <h3>Trang Thai He Thong</h3>
+            <ul>
+                <li>? API Dang Nhap / Dang Ky - Hoat dong</li>
+                <li>? Database Connection - K?t noi</li>
+                <li>? Static Files - Phu vu</li>
+                <li>? CORS - Enabled</li>
+                <li><strong>?? URL Duong Dan:</strong>
+                    <ul>
+                        <li>/login.html - Trang dang nhap</li>
+                        <li>/swagger - API Documentation</li>
+                        <li>/api/auth/login - Login API</li>
+                        <li>/api/auth/register - Register API</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

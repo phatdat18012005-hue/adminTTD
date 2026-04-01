@@ -1,0 +1,33 @@
+### Test API Dang Nhap va Dang Ky
+
+# Variables
+@baseUrl = https://localhost:7000
+@email = test@example.com
+@password = password123
+
+### Dang Nhap
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "matKhau": "{{password}}"
+}
+
+### Dang Ky
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "newuser@example.com",
+    "matKhau": "password123"
+}
+
+### Dang Nhap sau khi Dang Ky
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "newuser@example.com",
+    "matKhau": "password123"
+}
